@@ -1,0 +1,32 @@
+{
+  "name": "roblox-manager",
+  "version": "4.7.5",
+  "description": "A Discord bot that allows you to manage your Roblox group and game",
+  "main": "index.ts",
+  "scripts": {
+    "winBuild": "rd build /s /q & cls & npx tsc --project ./",
+    "linuxBuild": "rm build -r ; clear ; npx tsc --project ./",
+    "winStart": "npm run winBuild & node build/index.js",
+    "linuxStart": "npm run linuxBuild ; node build/index.js",
+    "startWithNoBuild": "node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sv-du/rbx-manager.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sv-du/rbx-manager/issues"
+  },
+  "homepage": "https://github.com/sv-du/rbx-manager#readme",
+  "dependencies": {
+    "discord.js": "^14.15.2",
+    "dotenv": "^16.4.5",
+    "ms": "^2.1.3",
+    "noblox.js": "^6.0.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/ms": "^0.7.34"
+  }
+}

@@ -1,0 +1,169 @@
+## Introduction
+Hello Roblox Community! I'm here today releasing a project that I thought could be pretty helpful to yall. It's a roblox group and game management tool designed to be as simple as possible. 
+
+# Showcase
+As this bot has multiple things to showcase, I'm going to showcase a bit of the main things
+Command Logs - https://i.imgur.com/JUeaXoc.png
+Ranking Logs - https://i.imgur.com/hCObICu.png
+Example Command Output: https://i.imgur.com/95uSCXd.png
+Showcase Video: ![8mb.video-W1h-Y5HhK6S7|video](upload://c8SEnG6IGniag04tu5E3WjGzMLZ.mp4)
+
+# Setup
+This bot has two components, a Node.js part and a Lua part. Please follow the steps carefully in order to set the bot up successfully
+
+# Step 1
+Install Node.js on your system. For Windows, go to [here](https://nodejs.org/en/) and select the LTS version. For Linux, assuming GUI-less server, one way you can install Node.js is using [nvm](https://github.com/nvm-sh/nvm)
+
+If you are using Windows, it is recommended that you also install the [Git CLI](https://git-scm.com/download/win)
+
+# Step 2
+Go to the [Github repository](https://github.com/sv-du/rbx-manager) and download the code by clicking Code > Download ZIP and then extracting the zip. If you have Git installed, run ``git clone https://github.com/sv-du/rbx-manager``
+
+# Step 3
+Once you have the unextracted folder, open it, its contents should look something like [this](https://i.imgur.com/30bzkeA.png)
+
+# Step 4
+Rename ``ENV_FORMAT.txt`` to ``.env`` and then open it in your favorite text editor
+**On Windows, file extensions are hidden by default. You must enable them in order to change the file extension**
+
+# Step 5
+Configure the env file. All of these values are very sensitive information, so don't leak them!
+
+# Step 5.1
+The value, ``DISCORD_TOKEN``, is your bot's Discord token. To get it, go to the https://discord.com/developers and clicking "New Application" and name it whatever you want.
+
+Go to the ``Installation`` tab and remove the install link (set it to None)
+
+Go to the ``Bot``, click on "Reset Token" and then click "Copy" and then back in the .env file, paste the token value that you copied after the equal sign
+
+While you're still here, go to the the "Public Bot" toggle and make sure it's disabled.
+
+# Step 5.2
+The value, ``ROBLOX_COOKIE``, is your bot's Roblox cookie. To get it, log in to your bot's Roblox account in an incognito window, open inspect element, click on Storage, then on Cookies, expand it, and click roblox.com. You will see multiple cookies that the site uses, what you need is the cookie labelled ``.ROBLOSECURITY``
+
+**The above instruction was tested with Firefox, for Chrome based browsers, look up how to get a site's cookies**
+
+Once you found the ``.ROBLOSECURITY`` cookie, copy it and paste it after the equal sign in the .env file
+
+# Step 5.3
+The value, ``ROBLOX_API_KEY``, is your API key for the Open Cloud endpoints. To get it, go to [your API keys](https://create.roblox.com/credentials) and click "Create API Key". Once you do so, name it whatever you want and give it the Datastore, Messaging Service, and User Restriction API systems and add your desired experience to it.
+
+For the scopes, give Datastore [these scopes](https://imgur.com/a/7X5gTFt), Messaging Service the `universe-messaging-service:publish` scope, and User Restriction the ``universe.user-restriction:read`` and ``universe.user-restriction:write`` scopes.
+
+Once done, go to section 3: Security, and input the IP address of the machine you want to host the bot on.
+
+If you want to allow all requests regardless of IP address, type ``0.0.0.0`` and ``0.0.0.0/0`` (If hosting on a service with dynamic IPs, this is required)
+
+After that, click "SAVE & GENERATE KEY", and then click "COPY KEY TO CLIPBOARD". Paste the API key after the equal sign in the .env file
+
+# Step 5.4
+The value, ``VERIFICATION_PROVIDER_API_KEY``, is your API key for whichever verification provider you want to use. Look up how to get it for said provider and paste it after the equal sign
+
+# Step 6
+Now that you're done configuring the .env file, close it, and open the ``config.ts`` file with your favorite text editor.
+
+# Step 6.1
+The value, ``groupIds``, is an array of group IDs of the groups you want the bot to manage. To get them, go to the group page and it is the numbers after ``/groups/``
+![image|304x39](upload://g4xudwRW9kFU2FATi9VQISvUENd.png)
+
+# Step 6.2
+The value, ``permissions``, is an object with certain permission nodes. These take a string of Discord role IDs
+
+# Step 6.3
+The value, ``antiAbuse``, is an object with the anti-abuse configuration
+
+``antiAbuse.enabled`` -> Determines whether the system is enabled or not
+``antiAbuse.thresholds.*`` -> Determines how many actions a user can do **in a minute** before the system takes action on them
+``antiAbuse.actions.*`` -> Determines what the punishment is for people caught abusing the specific action
+
+# Step 6.4
+The value, ``xpSystem``, is an object with the XP system configuration
+
+``xpSystem.enabled`` -> Determines whether the system is enabled or not
+``xpSystem.rewards`` -> The rewards for getting a certain XP amount. The format for these rewards is in the config. These can be added using the ``/reward`` command (does not support ``Custom`` rewards)
+``xpSystem.earnings`` -> The rate on which XP is given (by default, 2 XP is given for messages, 1 XP is given for reactions)
+
+# Step 6.5
+The value, ``counting``, is an object with the group counting configuration
+
+``counting.enabled`` -> Determines whether the system is enabled or not
+``counting.goal`` -> The goal that it wants to track
+``counting.loggingChannel`` -> The logging channel on which to send member count updates
+
+# Step 6.6
+The value, ``logging``, is an object with logging properties. To enable/disable it, toggle the enable values, and to set the logging channel, set it to a channel ID
+
+# Step 6.7
+The value, ``embedColors``, is an object setting the colors of different types of embeds. You don't need to change these values, but if you want to, [here are the valid options](https://discord.js.org/docs/packages/discord.js/14.16.3/ColorResolvable:TypeAlias)
+
+# Step 6.8
+The value, ``ban``, is an object containing the ban settings used for banning people from games (excluding ban.banDiscordAccounts, this applies to both game and group bans). The configuration options are self-explainatory, so I don't believe I need to mention them here
+
+# Step 6.9
+The value, ``groupBlacklists``, is an array containing group blacklist objects. This is internally managed by the bot using the ``/blacklist`` command, however, you may manually add entries if you want
+
+**THIS DOES NOTHING AS OF NOW, THIS WILL FUNCTION AS EXPECTED IN A LATER UPDATE**
+
+# Step 6.10
+The value, ``defaultCooldown``, is the default command cooldown in milliseconds. The default is 5000 milliseconds (5 seconds)
+
+# Step 6.11
+The value, ``cooldownOverrides``, are exceptions to the default cooldown set in step 6.8. The takes properties of ``commandName: new_cooldown``. For example, if I wanted to set the cooldown of the exile command to 20 seconds (20000 milliseconds), the value would be `cooldownOverrides: {"exile": 20000}`
+
+# Step 6.12
+The value, ``suspensionRank``, is the rank ID of the suspended rank in your group. This is the rank that people get set to when suspended
+
+# Step 6.13
+The value, ``universes``, is an array value representing the universes that you want to link. This is an array of universe IDs
+To get a universe ID, go to [your creations page](https://create.roblox.com/creations), click the "..." on the games you want to configure, and click "Copy Universe ID" and set it in the config
+
+# Step 6.14
+The value, ``datastoreName``, is the name of the datastore to use. You don't need to configure this
+
+**If you change this value, you MUST change it's value in the Roblox files in step 9**
+
+# Step 6.15
+The value, ``verificationChecks``, is the toggle for verification checks on the group commands. This by default is enabled, but if you want to disable it, set this to false
+
+# Step 6.16
+The value, ``collectorTime``, is how long collectors wait before being terminated in milliseconds. The default is 2 minutes, but you can change this if you want
+
+# Step 6.17
+The value, ``maximumNumberOfUsers``, indicates how many users you can execute a bulk action on. The default is 5, but you can change this if you want
+
+# Step 6.18
+The value, ``lockedRanks``, "locks" the ranks inputted, meaning that you can't promote/demote/setrank to those ranks. This accepts rank names and ids
+
+# Step 6.19
+The value, ``lockedCommands``, locks commands, meaning that no one can use them. Simply type a command name and it will lock it. Casing does not matter
+
+# Step 6.20
+The value, ``verificationProvider``, defines what verification provider the bot will use. Valid values are ``bloxlink``, ``rover``, and ``rowifi``
+
+# Step 7
+Now that you've configured your bot, go back to your bot's Discord develop page and copy it's client ID. After doing so, paste the following link into your browser: ``https://discord.com/oauth2/authorize?client_id=CLIENT_ID_HERE&permissions=8&integration_type=0&scope=applications.commands+bot`` and replace CLIENT_ID_HERE with your bot's client ID
+
+# Step 8
+Once you've added the bot into your server, go back to your bot file and open a command line terminal. In here, type ``npm install`` and then once that completes, run ``npm run winStart`` if on Windows or ``npm run linuxStart`` if on Linux. If you've done everything successfully, the bot should boot up with no errors
+
+# Step 9
+Now that you're done with the Node.js portion, it's time to move onto your Roblox portion
+
+Copy [the following code](https://raw.githubusercontent.com/sv-du/rbx-manager/master/roblox/SetupScript.lua)
+
+You will see a configuration section. Before pasting this code into the console of the game you want to install this system to, configure it
+
+**Unless you configured the datastoreName value, which would then need to be reflected in the DATASTORE_NAME value, no configuration is needed**
+
+You are now done with setting up this system! Was that hard?
+
+## Questions
+If you have any questions or need help setting up, don't be hesitant to ask in the comments. If you found/find this resource useful, please vote in the poll below. If not, please still vote, but also tell me what I should do to improve it, but for now, good day to you all!
+
+FYI: If you want updates on this system, follow this post as I will reply to it when I release updates
+
+[poll type=regular results=always chartType=bar]
+# Do you find this resource useful?
+* Yes
+* No
+[/poll]
