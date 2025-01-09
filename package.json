@@ -1,6 +1,6 @@
 {
   "name": "roblox-manager",
-  "version": "4.7.5",
+  "version": "4.7.6",
   "description": "A Discord bot that allows you to manage your Roblox group and game",
   "main": "index.ts",
   "scripts": {

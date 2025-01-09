@@ -152,6 +152,7 @@ client.once('ready', async() => {
 
 client.on('interactionCreate', async(interaction: Discord.Interaction) => {
     if(interaction.type !== Discord.InteractionType.ApplicationCommand) return;
+    if(!interaction.inGuild()) return;
     let command = interaction.commandName.toLowerCase();
     let commandObject = commands.find(c => c.name === command);
     if(!commandObject) return;
@@ -225,6 +226,7 @@ client.on('interactionCreate', async(interaction: Discord.Interaction) => {
 
 client.on("interactionCreate", async(interaction: Discord.Interaction) => {
     if(interaction.type !== Discord.InteractionType.ApplicationCommandAutocomplete) return;
+    if(!interaction.inGuild()) return;
     let command = interaction.commandName.toLowerCase();
     let commandObject = commands.find(c => c.name === command);
     if(!commandObject) return;
@@ -238,6 +240,7 @@ client.on("interactionCreate", async(interaction: Discord.Interaction) => {
 client.on("messageCreate", async(message: Discord.Message) => {
     if(!config.xpSystem.enabled) return;
     if(message.author.bot) return;
+    if(!message.inGuild()) return;
     let xpData = JSON.parse(await fs.promises.readFile(`${process.cwd()}/database/xpdata.json`, "utf-8")) as UserEntry[];
     let index = xpData.findIndex(v => v.discordID === message.author.id);
     let userData: UserEntry;
@@ -263,6 +266,7 @@ client.on("messageCreate", async(message: Discord.Message) => {
 client.on('messageReactionAdd', async(reaction: Discord.MessageReaction, user: Discord.User) => {
     if(!config.xpSystem.enabled) return;
     if(user.bot) return;
+    if(!reaction.message.inGuild()) return;
     let xpData = JSON.parse(await fs.promises.readFile(`${process.cwd()}/database/xpdata.json`, "utf-8")) as UserEntry[];
     let index = xpData.findIndex(v => v.discordID === user.id);
     let userData: UserEntry;
