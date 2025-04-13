@@ -21,6 +21,7 @@ async function getSales(groupID: number): Promise<SalesLog[]> {
         for(let i = 0; i < sales.length; i++) {
             sales[i].created = new Date(sales[i].created);
         }
+        sales.sort((a: SalesLog, b: SalesLog) => Number(b.created) - Number(a.created));
         return sales;
     }
 }
